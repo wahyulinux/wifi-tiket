@@ -23,3 +23,7 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     role ENUM('admin', 'teknisi') NOT NULL
 );
+
+ALTER TABLE tiket
+ADD COLUMN waktu_mulai DATETIME NULL,
+ADD COLUMN waktu_selesai DATETIME NULL;
