@@ -7,6 +7,7 @@
             <th scope="col">Nama Pelanggan</th>
             <th scope="col">Deskripsi</th>
             <th scope="col">Status</th>
+            <th scope="col">Durasi Pengerjaan</th>
             <th scope="col">Aksi</th>
             </tr>
         </thead>
@@ -25,6 +26,18 @@
                     <?php }else { ?>
                         <span class="badge text-bg-success">Selesai</span>
                     <?php }?>
+                </td>
+                <td>
+                    <?php
+                    if ($t['waktu_mulai'] && $t['waktu_selesai']) {
+                        $mulai = new DateTime($t['waktu_mulai']);
+                        $selesai = new DateTime($t['waktu_selesai']);
+                        $durasi = $mulai->diff($selesai);
+                        echo $durasi->format('%h jam %i menit');
+                    } else {
+                        echo '-';
+                    }
+                    ?>
                 </td>
                 <td>
                     <a class="btn btn-info" href="index.php?action=edit&id=<?= $t['id'] ?>" role="button">Update Status</a>

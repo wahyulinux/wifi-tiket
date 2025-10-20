@@ -35,8 +35,23 @@ class Tiket {
     }
 
     public function updateStatus($id, $status) {
-        $stmt = $this->conn->prepare("UPDATE tiket SET status = ? WHERE id = ?");
-        return $stmt->execute([$status, $id]);
+        $sql = "UPDATE tiket SET status = ?";
+
+        $params = [$status];
+
+        if ($status === 'Diproses') {
+            $sql .= ", waktu_mulai = NOW()";
+        }
+
+        if ($status === 'Selesai') {
+            $sql .= ", waktu_selesai = NOW()";
+        }
+
+        $sql .= " WHERE id = ?";
+        $params[] = $id;
+
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute($params);
     }
 
     public function delete($id) {
